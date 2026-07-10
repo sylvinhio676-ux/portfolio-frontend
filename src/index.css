@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap');
+@import "tailwindcss";
+
+/**
+ * Variables "vivantes" du thème — modifiées dynamiquement par
+ * theme.helpers.ts (applyThemeToDocument) via un style inline sur :root,
+ * qui prend toujours le pas sur ces valeurs par défaut définies ici.
+ * Cf. cahier des charges section 3 (Design System).
+ * Le sombre est la valeur par défaut de l'identité visuelle du portfolio.
+ */
+:root {
+  --background: #09090B;
+  --surface: #111827;
+  --card: #18181B;
+  --border: #27272A;
+  --primary: #00E5C3;
+  --primary-hover: #00D7B7;
+  --glow: rgba(0, 229, 195, 0.35);
+  --text: #FFFFFF;
+  --text-muted: #D4D4D8;
+  --text-dim: #A1A1AA;
+  --text-faint: #71717A;
+  --radius: 8px;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/**
+ * Surcharge mode clair — activée en posant la classe .light sur <html>
+ * (cf. theme-mode.store.ts). Sombre reste le défaut tant que cette classe
+ * est absente, donc aucun flash au premier chargement.
+ */
+.light {
+  --background: #FAFAFA;
+  --surface: #F1F1F3;
+  --card: #FFFFFF;
+  --border: #E4E4E7;
+  --primary: #00B89C;
+  --primary-hover: #009984;
+  --glow: rgba(0, 184, 156, 0.25);
+  --text: #09090B;
+  --text-muted: #3F3F46;
+  --text-dim: #52525B;
+  --text-faint: #71717A;
+}
+
+/**
+ * @theme mappe ces variables sur les tokens attendus par Tailwind v4,
+ * ce qui génère automatiquement les classes utilitaires correspondantes :
+ * bg-primary, text-primary, border-primary, bg-background, bg-surface,
+ * bg-card, border-border, text-text, text-muted, text-dim, text-faint,
+ * font-heading, font-body, font-mono, rounded-theme, shadow-glow.
+ * Chaque valeur référence la variable :root/.light ci-dessus (indirection
+ * volontaire pour rester réactif au changement de thème runtime, qu'il
+ * s'agisse du switch clair/sombre ou d'une couleur custom éditée depuis
+ * le dashboard admin).
+ */
+@theme {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-dim: var(--text-dim);
+  --color-faint: var(--text-faint);
+
+  /* Alias sémantiques pour rester compatible avec les composants existants
+     (foreground = couleur de texte principale, muted-foreground = texte secondaire). */
+  --color-foreground: var(--text);
+  --color-muted-foreground: var(--text-dim);
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+
+  --radius-theme: var(--radius);
+  --shadow-glow: 0 0 20px var(--glow);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    margin: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--text);
+  }
+
+  code, pre {
+    font-family: var(--font-mono);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
