@@ -28,8 +28,8 @@ import {
   DashboardSocialsPage,
   DashboardAboutPage,
   DashboardSeoPage,
+  DashboardMediaPage,
   // DashboardAppearancePage,
-  // DashboardMediaPage,
 } from '@/pages';
 
 export function AppRouter() {
@@ -62,11 +62,10 @@ export function AppRouter() {
           <Route path={ROUTES.admin.socials} element={<DashboardSocialsPage />} />
           <Route path={ROUTES.admin.about} element={<DashboardAboutPage />} />
           <Route path={ROUTES.admin.seo} element={<DashboardSeoPage />} />
-        </Route>
-        {/* <Route element={<AdminLayout />}>
-          <Route path={ROUTES.admin.appearance} element={<DashboardAppearancePage />} />
           <Route path={ROUTES.admin.media} element={<DashboardMediaPage />} />
-        </Route> */}
+        </Route>
+        {/* Apparence : géré côté frontend (thème), pas de CRUD backend.
+        <Route path={ROUTES.admin.appearance} element={<DashboardAppearancePage />} /> */}
       </Route>
 
       {/* 404 */}
