@@ -10,3 +10,4 @@ export * from './testimonial.types';
 export * from './social.types';
 export * from './appearance.types';
 export * from './seo.types';
+export * from './media.types';

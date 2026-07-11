@@ -2,6 +2,10 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnement [SemVer](https://semver.org/lang/fr/).
 
+## [1.1.0] — Module Médias
+### Ajouté
+- Bibliothèque de médias : upload de fichiers vers Cloudinary (images / PDF), copie de l'URL, suppression.
+
 ## [1.0.0] — Dashboard admin
 ### Ajouté
 - Dashboard d'administration (CMS) : CRUD Projets (+ upload d'images), Compétences (+ catégories), Expérience, Services, Témoignages, Réseaux sociaux, À propos, SEO par page.

@@ -75,5 +75,6 @@ export const API_ROUTES = {
   },
   MEDIA: {
     UPLOAD: '/admin/media/upload',
+    DELETE: '/admin/media/delete',
   },
 } as const;
