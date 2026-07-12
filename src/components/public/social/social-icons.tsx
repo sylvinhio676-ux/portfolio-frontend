@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import type { ElementType } from 'react';
 import { Mail, MessageCircle, Globe, Send, Link as LinkIcon } from 'lucide-react';
 

@@ -1,8 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import { useAdminEducation, useUpdateEducation } from '@/hooks/admin/use-admin-education';
 import type { Education } from '@/core/types';
 import { mapRowToInput } from './education.constants';
+
+// Trie une liste de formations par sort_order (gère le cas data undefined).
+function sortByOrder(data: Education[] | undefined): Education[] {
+  if (!data) return [];
+  return [...data].sort((a, b) => a.sort_order - b.sort_order);
+}
 
 export type EducationView = 'grid' | 'table';
 export type EducationStatusFilter = 'all' | 'current' | 'finished';
@@ -24,18 +30,20 @@ export function useEducationWorkspace() {
   const { data, isLoading, isError } = useAdminEducation();
   const updateEducation = useUpdateEducation();
 
-  const [ordered, setOrdered] = useState<Education[]>([]);
+  const [ordered, setOrdered] = useState<Education[]>(() => sortByOrder(data));
   const [search, setSearch] = useState('');
   const [levelFilter, setLevelFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<EducationStatusFilter>('all');
   const [sortBy, setSortBy] = useState<EducationSort>('sort_order');
   const [view, setView] = useState<EducationView>('table');
 
-  // Synchronise l'ordre local avec la source serveur (ordre par sort_order).
-  useEffect(() => {
-    if (!data) return;
-    setOrdered([...data].sort((a, b) => a.sort_order - b.sort_order));
-  }, [data]);
+  // Synchronise l'ordre local avec la source serveur pendant le rendu quand
+  // `data` change (pas d'effet), en conservant le tri par sort_order.
+  const [prevData, setPrevData] = useState(data);
+  if (data !== prevData) {
+    setPrevData(data);
+    setOrdered(sortByOrder(data));
+  }
 
   // KPI calculées depuis la liste chargée.
   const kpis = useMemo<EducationKpiData>(() => {
