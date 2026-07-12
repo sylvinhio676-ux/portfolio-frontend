@@ -1,4 +1,6 @@
 export * from './use-admin-projects';
+export * from './use-admin-education';
+export * from './use-admin-certifications';
 export * from './use-admin-skills';
 export * from './use-admin-skill-categories';
 export * from './use-admin-experience';

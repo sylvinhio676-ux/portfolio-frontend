@@ -29,6 +29,12 @@ const ServicesPage = lazy(() =>
 const ContactPage = lazy(() =>
   import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage }))
 );
+const EducationPage = lazy(() =>
+  import('@/pages/EducationPage').then((m) => ({ default: m.EducationPage }))
+);
+const CertificationsPage = lazy(() =>
+  import('@/pages/CertificationsPage').then((m) => ({ default: m.CertificationsPage }))
+);
 
 // Pages admin (dashboard)
 const DashboardPage = lazy(() =>
@@ -67,6 +73,30 @@ const DashboardSeoPage = lazy(() =>
 const DashboardMediaPage = lazy(() =>
   import('@/pages/DashboardMediaPage').then((m) => ({ default: m.DashboardMediaPage }))
 );
+const DashboardEducationPage = lazy(() =>
+  import('@/pages/DashboardEducationPage').then((m) => ({ default: m.DashboardEducationPage }))
+);
+const DashboardEducationNewPage = lazy(() =>
+  import('@/pages/DashboardEducationNewPage').then((m) => ({ default: m.DashboardEducationNewPage }))
+);
+const DashboardEducationEditPage = lazy(() =>
+  import('@/pages/DashboardEducationEditPage').then((m) => ({ default: m.DashboardEducationEditPage }))
+);
+const DashboardCertificationsPage = lazy(() =>
+  import('@/pages/DashboardCertificationsPage').then((m) => ({
+    default: m.DashboardCertificationsPage,
+  }))
+);
+const DashboardCertificationNewPage = lazy(() =>
+  import('@/pages/DashboardCertificationNewPage').then((m) => ({
+    default: m.DashboardCertificationNewPage,
+  }))
+);
+const DashboardCertificationEditPage = lazy(() =>
+  import('@/pages/DashboardCertificationEditPage').then((m) => ({
+    default: m.DashboardCertificationEditPage,
+  }))
+);
 
 // Écran de chargement pendant le fetch d'un chunk de route.
 function PageFallback() {
@@ -88,6 +118,8 @@ export function AppRouter() {
           <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path={ROUTES.public.about} element={<AboutPage />} />
           <Route path={ROUTES.public.services} element={<ServicesPage />} />
+          <Route path={ROUTES.public.education} element={<EducationPage />} />
+          <Route path={ROUTES.public.certifications} element={<CertificationsPage />} />
           <Route path={ROUTES.public.contact} element={<ContactPage />} />
         </Route>
 
@@ -101,6 +133,12 @@ export function AppRouter() {
             <Route path={ROUTES.admin.projects} element={<DashboardProjectsPage />} />
             <Route path={ROUTES.admin.projectNew} element={<DashboardProjectNewPage />} />
             <Route path="/dashboard/projects/:id" element={<DashboardProjectEditPage />} />
+            <Route path="/dashboard/education" element={<DashboardEducationPage />} />
+            <Route path="/dashboard/education/new" element={<DashboardEducationNewPage />} />
+            <Route path="/dashboard/education/:id" element={<DashboardEducationEditPage />} />
+            <Route path="/dashboard/certifications" element={<DashboardCertificationsPage />} />
+            <Route path="/dashboard/certifications/new" element={<DashboardCertificationNewPage />} />
+            <Route path="/dashboard/certifications/:id" element={<DashboardCertificationEditPage />} />
             <Route path={ROUTES.admin.skills} element={<DashboardSkillsPage />} />
             <Route path={ROUTES.admin.experience} element={<DashboardExperiencePage />} />
             <Route path={ROUTES.admin.services} element={<DashboardServicesPage />} />

@@ -5,6 +5,8 @@ import { MethodSection } from '@/components/public/method/MethodSection';
 import { ProjectsSection } from '@/components/public/projects/ProjectsSection';
 import { ServicesSection } from '@/components/public/services/ServicesSection';
 import { ExperienceSection } from '@/components/public/experience/ExperienceSection';
+import { EducationSection } from '@/components/public/education';
+import { CertificationsSection } from '@/components/public/certifications';
 import { TestimonialsSection } from '@/components/public/testimonials/TestimonialsSection';
 import { CTABanner } from '@/components/public/cta/CTABanner';
 import { ContactSection } from '@/components/public/contact/ContactSection';
@@ -21,6 +23,8 @@ export function HomePage() {
       <ProjectsSection />
       <ServicesSection />
       <ExperienceSection />
+      <EducationSection />
+      <CertificationsSection />
       <TestimonialsSection />
       <CTABanner />
       <ContactSection />

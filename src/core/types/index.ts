@@ -2,6 +2,8 @@ export * from './api.types';
 export * from './auth.types';
 export * from './about.types';
 export * from './project.types';
+export * from './education.types';
+export * from './certification.types';
 export * from './skill.types';
 export * from './workflow-step.types';
 export * from './experience.types';
