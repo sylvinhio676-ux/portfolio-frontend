@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
-import { Card } from '@/components/ui';
-import type { Project } from '@/core/types';
+import { ExternalLink, Star, TrendingUp } from 'lucide-react';
+import { Badge, Card } from '@/components/ui';
+import type { Project, ProjectCategory } from '@/core/types';
 import { ROUTES } from '@/core/constants';
 import { buildCloudinaryUrl } from '@/core/helpers';
 import { ProjectTechBadge } from './ProjectTechBadge';
@@ -9,6 +9,16 @@ import { ProjectTechBadge } from './ProjectTechBadge';
 interface ProjectCardProps {
   project: Project;
 }
+
+// Nombre de technologies affichées avant de basculer sur un compteur « +N »
+const MAX_VISIBLE_TECHS = 4;
+
+// Libellés lisibles pour chaque catégorie de projet
+const CATEGORY_LABELS: Record<ProjectCategory, string> = {
+  web: 'Web',
+  mobile: 'Mobile',
+  api: 'API',
+};
 
 /**
  * Carte projet : couverture, titre, description courte et technologies.
@@ -19,9 +29,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const externalUrl = project.demo_url ?? project.github_url;
   const detailPath = ROUTES.public.projectDetail(project.slug);
 
+  const technologies = project.technologies ?? [];
+  const visibleTechs = technologies.slice(0, MAX_VISIBLE_TECHS);
+  const remainingTechs = technologies.length - MAX_VISIBLE_TECHS;
+
   return (
     <Card className="group flex flex-col overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:border-primary">
-      <Link to={detailPath} className="block aspect-video overflow-hidden bg-surface">
+      <Link to={detailPath} className="relative block aspect-video overflow-hidden bg-surface">
         {cover ? (
           <img
             src={cover}
@@ -33,6 +47,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <div className="flex h-full w-full items-center justify-center font-heading text-3xl font-bold text-primary">
             {project.title.charAt(0)}
           </div>
+        )}
+
+        {/* Pastille catégorie en overlay, coin haut-gauche */}
+        {project.category && (
+          <span className="absolute left-3 top-3 rounded-theme bg-background/80 px-2 py-1 text-xs font-medium text-primary backdrop-blur">
+            {CATEGORY_LABELS[project.category]}
+          </span>
+        )}
+
+        {/* Pastille « en vedette » en overlay, coin haut-droite */}
+        {project.is_featured && (
+          <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-theme bg-background/80 px-2 py-1 text-xs font-medium text-primary backdrop-blur">
+            <Star className="h-3 w-3 fill-primary text-primary" />
+            Vedette
+          </span>
         )}
       </Link>
 
@@ -57,14 +86,24 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
 
-        <p className="mb-4 line-clamp-2 flex-1 text-sm text-muted">
+        <p className="mb-2 line-clamp-2 text-sm text-muted">
           {project.tagline ?? project.description}
         </p>
 
-        <div className="flex flex-wrap gap-2">
-          {(project.technologies ?? []).slice(0, 4).map((tech) => (
+        {/* Ligne d'impact : résultat clé du projet, mis en avant */}
+        {project.result && (
+          <p className="mb-4 flex items-center gap-1.5 text-sm font-medium text-text">
+            <TrendingUp className="h-4 w-4 shrink-0 text-primary" />
+            <span className="line-clamp-1">{project.result}</span>
+          </p>
+        )}
+
+        <div className="mt-auto flex flex-wrap gap-2">
+          {visibleTechs.map((tech) => (
             <ProjectTechBadge key={tech.id} tech={tech} />
           ))}
+          {/* Compteur des technologies non affichées */}
+          {remainingTechs > 0 && <Badge variant="outline">+{remainingTechs}</Badge>}
         </div>
       </div>
     </Card>
