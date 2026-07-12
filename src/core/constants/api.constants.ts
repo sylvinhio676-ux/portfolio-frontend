@@ -22,6 +22,32 @@ export const API_ROUTES = {
     ADMIN_DELETE_IMAGE: (id: number, imgId: number) =>
       `/admin/projects/${id}/images/${imgId}`,
   },
+  EDUCATION: {
+    LIST: '/education',
+    DETAIL: (id: number) => `/education/${id}`,
+    ADMIN_LIST: '/admin/education',
+    ADMIN_CREATE: '/admin/education',
+    ADMIN_UPDATE: (id: number) => `/admin/education/${id}`,
+    ADMIN_DELETE: (id: number) => `/admin/education/${id}`,
+    ADMIN_ADD_IMAGE: (id: number) => `/admin/education/${id}/images`,
+    ADMIN_DELETE_IMAGE: (id: number, imgId: number) =>
+      `/admin/education/${id}/images/${imgId}`,
+    ADMIN_ADD_DOCUMENT: (id: number) => `/admin/education/${id}/documents`,
+    ADMIN_DELETE_DOCUMENT: (id: number, docId: number) =>
+      `/admin/education/${id}/documents/${docId}`,
+  },
+  CERTIFICATIONS: {
+    LIST: '/certifications',
+    DETAIL: (id: number) => `/certifications/${id}`,
+    ADMIN_LIST: '/admin/certifications',
+    ADMIN_CREATE: '/admin/certifications',
+    ADMIN_UPDATE: (id: number) => `/admin/certifications/${id}`,
+    ADMIN_DELETE: (id: number) => `/admin/certifications/${id}`,
+    ADMIN_UPLOAD_BADGE: (id: number) => `/admin/certifications/${id}/badge`,
+    ADMIN_ADD_DOCUMENT: (id: number) => `/admin/certifications/${id}/documents`,
+    ADMIN_DELETE_DOCUMENT: (id: number, docId: number) =>
+      `/admin/certifications/${id}/documents/${docId}`,
+  },
   SKILLS: {
     LIST: '/skills',
     ADMIN_LIST: '/admin/skills',

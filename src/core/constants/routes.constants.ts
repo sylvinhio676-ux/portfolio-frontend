@@ -6,6 +6,8 @@ export const ROUTES = {
     projectDetail: (slug: string) => `/projects/${slug}`,
     about: '/about',
     services: '/services',
+    education: '/education',
+    certifications: '/certifications',
     contact: '/contact',
   },
   auth: {

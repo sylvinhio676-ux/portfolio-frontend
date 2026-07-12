@@ -7,6 +7,8 @@ export * from './skills.service';
 export * from './skill-categories.service';
 export * from './workflow-steps.service';
 export * from './projects.service';
+export * from './education.service';
+export * from './certification.service';
 export * from './services.service';
 export * from './experience.service';
 export * from './testimonials.service';
