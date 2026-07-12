@@ -2,6 +2,10 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnement [SemVer](https://semver.org/lang/fr/).
 
+## [1.2.0] — Performance
+### Optimisé
+- Lazy-loading des routes (React.lazy + Suspense) : le dashboard admin et les pages secondaires sont chargés à la demande. Bundle initial réduit (~721 kB → ~485 kB, gzip ~150 kB).
+
 ## [1.1.0] — Module Médias
 ### Ajouté
 - Bibliothèque de médias : upload de fichiers vers Cloudinary (images / PDF), copie de l'URL, suppression.
