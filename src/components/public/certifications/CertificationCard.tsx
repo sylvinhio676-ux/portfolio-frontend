@@ -59,29 +59,29 @@ export function CertificationCard({ certification, index = 0 }: CertificationCar
         </div>
 
         {/* Titre + organisme */}
-        <div className="flex flex-col gap-1.5">
-          <h3 className="font-heading text-lg font-semibold text-text">
+        <div className="flex min-w-0 flex-col gap-1.5">
+          <h3 className="line-clamp-2 break-words font-heading text-lg font-semibold text-text">
             {certification.title}
           </h3>
-          <div className="flex items-center gap-2 text-sm text-muted">
+          <div className="flex min-w-0 items-center gap-2 text-sm text-muted">
             {providerLogo ? (
               <img
                 src={providerLogo}
                 alt={certification.provider}
                 loading="lazy"
-                className="h-5 w-5 rounded object-contain"
+                className="h-5 w-5 shrink-0 rounded object-contain"
               />
             ) : (
-              <Building2 className="h-4 w-4 text-faint" />
+              <Building2 className="h-4 w-4 shrink-0 text-faint" />
             )}
-            <span>{certification.provider}</span>
+            <span className="truncate">{certification.provider}</span>
           </div>
         </div>
 
         {/* Date d'obtention */}
-        <div className="flex items-center gap-2 text-xs text-faint">
-          <Calendar className="h-3.5 w-3.5" />
-          <span>Obtenue le {formatDateFr(certification.issue_date)}</span>
+        <div className="flex min-w-0 items-center gap-2 text-xs text-faint">
+          <Calendar className="h-3.5 w-3.5 shrink-0" />
+          <span className="truncate">Obtenue le {formatDateFr(certification.issue_date)}</span>
         </div>
 
         {/* Compétences associées */}
@@ -98,13 +98,14 @@ export function CertificationCard({ certification, index = 0 }: CertificationCar
 
         {/* Action : téléchargement du badge quand il est disponible */}
         {badge && (
-          <div className="mt-auto flex flex-wrap gap-2 pt-2">
+          <div className="mt-auto flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
             <Button
               href={badge}
               target="_blank"
               rel="noopener noreferrer"
               variant="secondary"
               size="sm"
+              className="w-full justify-center sm:w-auto"
             >
               <Download className="h-4 w-4" />
               Télécharger

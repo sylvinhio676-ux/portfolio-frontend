@@ -51,10 +51,10 @@ function CertificationCard({ cert, sortable, onDelete }: CertificationCardProps)
           <img
             src={buildCloudinaryUrl(cert.badge, { width: 96 })}
             alt=""
-            className="h-12 w-12 rounded object-contain"
+            className="h-12 w-12 shrink-0 rounded object-contain"
           />
         ) : (
-          <span className="flex h-12 w-12 items-center justify-center rounded bg-surface text-faint">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-surface text-faint">
             <Award className="h-6 w-6" />
           </span>
         )}
@@ -68,7 +68,7 @@ function CertificationCard({ cert, sortable, onDelete }: CertificationCardProps)
         {sortable && (
           <button
             type="button"
-            className="cursor-grab text-faint hover:text-text active:cursor-grabbing"
+            className="shrink-0 cursor-grab text-faint hover:text-text active:cursor-grabbing"
             aria-label="Réordonner"
             {...attributes}
             {...listeners}
