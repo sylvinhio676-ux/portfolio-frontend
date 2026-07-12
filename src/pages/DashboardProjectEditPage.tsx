@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { Skeleton } from '@/components/ui';
+import { ArrowLeft } from 'lucide-react';
+import { Button, Skeleton } from '@/components/ui';
 import { ProjectForm } from '@/components/admin/projects/ProjectForm';
 import { ProjectImagesUpload } from '@/components/admin/projects/ProjectImagesUpload';
+import { ROUTES } from '@/core/constants';
 import { useAdminProjects, useUpdateProject } from '@/hooks/admin';
 import { useProjectDetail } from '@/hooks/public/use-project-detail';
 import type { ProjectDetail } from '@/core/types';
@@ -54,6 +56,10 @@ export function DashboardProjectEditPage() {
 
   return (
     <div className="max-w-3xl space-y-8">
+      <Button to={ROUTES.admin.projects} variant="ghost" size="sm" className="-ml-3">
+        <ArrowLeft className="h-4 w-4" />
+        Retour aux projets
+      </Button>
       <h2 className="font-heading text-2xl font-semibold text-text">
         Modifier : {detail.title}
       </h2>

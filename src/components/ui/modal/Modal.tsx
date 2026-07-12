@@ -1,6 +1,8 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import { cn } from '@/core/helpers';
+import { Button } from '@/components/ui/button/Button';
 
 interface ModalProps {
   isOpen: boolean;
@@ -56,7 +58,22 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
           className
         )}
       >
-        {title && <h2 className="text-lg font-semibold mb-4 text-text">{title}</h2>}
+        <div className="mb-4 flex items-start justify-between gap-4">
+          {title ? (
+            <h2 className="text-lg font-semibold text-text">{title}</h2>
+          ) : (
+            <span />
+          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            aria-label="Fermer"
+            className="-mr-2 -mt-1 shrink-0 px-2"
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
         {children}
       </div>
     </div>,
