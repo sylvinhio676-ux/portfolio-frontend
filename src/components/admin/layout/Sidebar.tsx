@@ -1,19 +1,9 @@
-
-
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard,
-  FolderOpen,
-  Code2,
-  Briefcase,
-  Server,
-  Users,
-  User,
-  Palette,
-  Search,
-  Settings,
-  LogOut,
+import {
+  LayoutDashboard, FolderOpen, Code2, Briefcase, Server,
+  Users, User, Search, Settings, LogOut, X,
 } from 'lucide-react';
+import { cn } from '@/core/helpers';
 import { NavItem } from './NavItem';
 import { useAuth } from '@/hooks/use-auth';
 
@@ -25,45 +15,63 @@ const NAV_ITEMS = [
   { href: '/dashboard/services', label: 'Services', icon: Server },
   { href: '/dashboard/testimonials', label: 'Témoignages', icon: Users },
   { href: '/dashboard/about', label: 'À propos', icon: User },
-  { href: '/dashboard/appearance', label: 'Apparence', icon: Palette },
   { href: '/dashboard/seo', label: 'SEO', icon: Search },
   { href: '/dashboard/media', label: 'Médias', icon: Settings },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation();
   const { logout } = useAuth();
 
   return (
-    <aside className="hidden md:flex fixed inset-y-0 left-0 w-64 flex-col border-r border-border bg-surface">
-      <div className="p-6 border-b border-border">
-        <Link to="/dashboard" className="font-heading text-xl font-bold text-primary">
-          Admin<span className="text-foreground">.</span>
-        </Link>
-        <p className="text-xs text-muted-foreground mt-1">Portfolio OS</p>
-      </div>
+    <>
+      {isOpen && (
+        <div className="fixed inset-0 z-40 bg-black/50 md:hidden" onClick={onClose} aria-hidden />
+      )}
 
-      <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-        {NAV_ITEMS.map((item) => (
-          <NavItem
-            key={item.href}
-            href={item.href}
-            label={item.label}
-            icon={item.icon}
-            isActive={location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)}
-          />
-        ))}
-      </nav>
+      <aside
+        className={cn(
+          'fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-border bg-surface transition-transform duration-300 md:translate-x-0',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        <div className="flex items-center justify-between border-b border-border p-6">
+          <Link to="/dashboard" onClick={onClose} className="font-heading text-xl font-bold text-primary">
+            Admin<span className="text-text">.</span>
+          </Link>
+          <button onClick={onClose} className="rounded-lg p-1 text-muted hover:bg-background md:hidden" aria-label="Fermer le menu">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
 
-      <div className="p-4 border-t border-border">
-        <button
-          onClick={logout}
-          className="flex items-center gap-3 w-full px-3 py-2 text-sm text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
-        >
-          <LogOut className="w-4 h-4" />
-          Déconnexion
-        </button>
-      </div>
-    </aside>
+        <nav className="flex-1 space-y-1 overflow-y-auto p-4">
+          {NAV_ITEMS.map((item) => (
+            <div key={item.href} onClick={onClose}>
+              <NavItem
+                href={item.href}
+                label={item.label}
+                icon={item.icon}
+                isActive={location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)}
+              />
+            </div>
+          ))}
+        </nav>
+
+        <div className="border-t border-border p-4">
+          <button
+            onClick={logout}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-red-500/10 hover:text-red-500"
+          >
+            <LogOut className="h-4 w-4" />
+            Déconnexion
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
