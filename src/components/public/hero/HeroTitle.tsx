@@ -22,22 +22,31 @@ export function HeroTitle({ name, title }: HeroTitleProps) {
   const [typed, setTyped] = useState('');
 
   useEffect(() => {
-    if (prefersReducedMotion()) {
-      setTyped(title);
-      return;
-    }
-
-    setTyped('');
     let index = 0;
-    const intervalId = window.setInterval(() => {
-      index += 1;
-      setTyped(title.slice(0, index));
-      if (index >= title.length) {
-        window.clearInterval(intervalId);
-      }
-    }, 55);
+    let intervalId: number | undefined;
 
-    return () => window.clearInterval(intervalId);
+    // Différé (setTimeout) pour éviter tout setState synchrone dans l'effet.
+    const start = () => {
+      if (prefersReducedMotion()) {
+        setTyped(title);
+        return;
+      }
+      setTyped('');
+      intervalId = window.setInterval(() => {
+        index += 1;
+        setTyped(title.slice(0, index));
+        if (index >= title.length) {
+          window.clearInterval(intervalId);
+        }
+      }, 55);
+    };
+
+    const timeoutId = window.setTimeout(start, 0);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (intervalId) window.clearInterval(intervalId);
+    };
   }, [title]);
 
   return (

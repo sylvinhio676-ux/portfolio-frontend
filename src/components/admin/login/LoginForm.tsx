@@ -29,8 +29,9 @@ export function LoginForm() {
     setIsLoading(true);
     try {
       await login(data);
-    } catch (err: any) {
-      toastError(err.message || 'Identifiants incorrects');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Identifiants incorrects';
+      toastError(message);
     } finally {
       setIsLoading(false);
     }
