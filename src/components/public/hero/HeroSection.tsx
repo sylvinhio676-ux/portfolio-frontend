@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Briefcase, Code, Clock, Heart, type LucideIcon } from 'lucide-react';
+import { Briefcase, Code, Clock, Heart, ChevronDown, type LucideIcon } from 'lucide-react';
 import { Card, Skeleton } from '@/components/ui';
 import { useAbout } from '@/hooks/public/use-about';
 import { useSkills } from '@/hooks/public/use-skills';
@@ -75,6 +75,8 @@ export function HeroSection() {
           <HeroCTA
             primaryLabel={about?.hero_cta1_label}
             primaryUrl={about?.hero_cta1_url}
+            secondaryLabel={about?.hero_cta2_label}
+            secondaryUrl={about?.hero_cta2_url}
             cvUrl={about?.cv_url}
           />
 
@@ -105,6 +107,22 @@ export function HeroSection() {
           Certaines informations n'ont pas pu être chargées.
         </p>
       )}
+
+      {/* Indicateur de scroll animé (va-et-vient vertical en boucle). */}
+      <motion.button
+        type="button"
+        onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+        aria-label="Défiler vers le bas"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 8, 0] }}
+        transition={{
+          opacity: { delay: 1, duration: 0.6 },
+          y: { duration: 1.6, repeat: Infinity, ease: 'easeInOut' },
+        }}
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-muted transition-colors hover:text-primary sm:block"
+      >
+        <ChevronDown className="h-6 w-6" />
+      </motion.button>
     </section>
   );
 }

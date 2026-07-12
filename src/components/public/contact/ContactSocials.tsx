@@ -1,27 +1,8 @@
-import {
-  Mail,
-  MessageCircle,
-  Globe,
-  Link as LinkIcon,
-  type LucideIcon,
-} from 'lucide-react';
 import { useSocials } from '@/hooks/public/use-socials';
-import type { Social } from '@/core/types';
-
-// Icône selon la plateforme, avec un lien générique en repli.
-// (lucide-react v1 ne fournit plus les icônes de marque GitHub/LinkedIn.)
-const PLATFORM_ICONS: Record<string, LucideIcon> = {
-  email: Mail,
-  whatsapp: MessageCircle,
-  website: Globe,
-};
-
-function iconFor(social: Social): LucideIcon {
-  return PLATFORM_ICONS[social.platform.toLowerCase()] ?? LinkIcon;
-}
+import { getSocialIcon } from '@/components/public/social/social-icons';
 
 /**
- * Coordonnées et liens réseaux sociaux de la section Contact.
+ * Coordonnées et liens réseaux sociaux de la section Contact (données API).
  */
 export function ContactSocials() {
   const { data } = useSocials();
@@ -39,7 +20,7 @@ export function ContactSocials() {
       {socials.length > 0 && (
         <ul className="flex flex-col gap-3">
           {socials.map((social) => {
-            const Icon = iconFor(social);
+            const Icon = getSocialIcon(social.platform);
             return (
               <li key={social.id}>
                 <a

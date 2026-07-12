@@ -6,6 +6,7 @@ import type { ProjectDetail } from '@/core/types';
 import { useProjectDetail } from '@/hooks/public/use-project-detail';
 import { ProjectDetailHero } from '@/components/public/projects/ProjectDetailHero';
 import { ProjectGallery } from '@/components/public/projects/ProjectGallery';
+import { PageSeo } from '@/components/public/seo';
 
 // Sections « case study » affichées si le champ est renseigné.
 const CASE_STUDY: Array<{ key: keyof ProjectDetail; label: string }> = [
@@ -22,6 +23,14 @@ export function ProjectDetailPage() {
 
   return (
     <section className="bg-background py-24">
+      <PageSeo
+        page="projects"
+        titleOverride={
+          project ? `${project.title} — Negoue Tamo Sylvinhio` : undefined
+        }
+        descriptionOverride={project?.tagline ?? undefined}
+        imageOverride={project?.cover_image ?? undefined}
+      />
       <div className="container mx-auto max-w-4xl px-4">
         <Button to={ROUTES.public.projects} variant="ghost" size="sm" className="mb-8">
           <ArrowLeft className="h-4 w-4" />

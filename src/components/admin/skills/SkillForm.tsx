@@ -32,12 +32,16 @@ export function SkillForm({
   const {
     register,
     control,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<SkillFormValues>({
     resolver: zodResolver(skillSchema),
     defaultValues: { ...emptyValues, ...defaultValues },
   });
+
+  // Valeur courante du niveau, affichée à côté du slider.
+  const level = watch('level');
 
   const options = categories.map((category) => ({
     value: String(category.id),
@@ -61,13 +65,27 @@ export function SkillForm({
       />
       <Input label="Nom" error={errors.name?.message} {...register('name')} />
       <Input label="Logo (URL)" error={errors.logo_url?.message} {...register('logo_url')} />
-      <div className="grid grid-cols-2 gap-4">
-        <Input
-          label="Niveau (0-100)"
-          type="number"
-          error={errors.level?.message}
-          {...register('level', { valueAsNumber: true })}
-        />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center justify-between">
+            <label htmlFor="skill-level" className="text-sm text-dim">
+              Niveau de maîtrise
+            </label>
+            <span className="text-sm font-semibold text-primary">{level}%</span>
+          </div>
+          <input
+            id="skill-level"
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            className="h-2 w-full cursor-pointer appearance-none rounded-full bg-border accent-primary"
+            {...register('level', { valueAsNumber: true })}
+          />
+          {errors.level?.message && (
+            <p className="text-xs text-red-500">{errors.level.message}</p>
+          )}
+        </div>
         <Input label="Couleur (#hex)" error={errors.color?.message} {...register('color')} />
       </div>
       <div className="grid grid-cols-2 items-center gap-4">

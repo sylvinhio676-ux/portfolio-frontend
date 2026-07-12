@@ -3,6 +3,7 @@ import { Skeleton } from '@/components/ui';
 import { useProjects } from '@/hooks/public/use-projects';
 import { ProjectCard } from '@/components/public/projects/ProjectCard';
 import { ProjectFilter, ALL_FILTER } from '@/components/public/projects/ProjectFilter';
+import { PageSeo } from '@/components/public/seo';
 
 /**
  * Page « Projets » — liste complète des projets publiés + filtre par techno.
@@ -30,6 +31,7 @@ export function ProjectsPage() {
 
   return (
     <section className="bg-background py-24">
+      <PageSeo page="projects" />
       <div className="container mx-auto px-4">
         <div className="mb-8 flex flex-col gap-3">
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-primary">

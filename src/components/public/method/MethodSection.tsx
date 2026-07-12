@@ -32,9 +32,9 @@ export function MethodSection() {
         </motion.div>
 
         {isLoading ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="flex flex-col gap-8">
             {Array.from({ length: 4 }).map((_, index) => (
-              <Skeleton key={index} height="10rem" />
+              <Skeleton key={index} height="5rem" />
             ))}
           </div>
         ) : (

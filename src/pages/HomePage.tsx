@@ -8,10 +8,12 @@ import { ExperienceSection } from '@/components/public/experience/ExperienceSect
 import { TestimonialsSection } from '@/components/public/testimonials/TestimonialsSection';
 import { CTABanner } from '@/components/public/cta/CTABanner';
 import { ContactSection } from '@/components/public/contact/ContactSection';
+import { PageSeo } from '@/components/public/seo';
 
 export function HomePage() {
   return (
     <main>
+      <PageSeo page="home" />
       <HeroSection />
       <AboutSection />
       <SkillsSection />
