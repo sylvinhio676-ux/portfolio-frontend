@@ -28,6 +28,7 @@ export const projectSchema = z.object({
   demo_url: z.string().url().optional().nullable().or(z.literal('')),
   video_url: z.string().url().optional().nullable().or(z.literal('')),
   cover_image: z.string().url().optional().nullable().or(z.literal('')),
+  category: z.enum(['web', 'mobile', 'api']).nullable(),
   is_featured: z.boolean(),
   status: z.enum(['draft', 'published', 'archived']),
   sort_order: z.number().int(),

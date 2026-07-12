@@ -1,42 +1,28 @@
-import { Quote, Star } from 'lucide-react';
+import { Quote } from 'lucide-react';
 import { Card } from '@/components/ui';
 import type { Testimonial } from '@/core/types';
-import { buildCloudinaryUrl, cn } from '@/core/helpers';
+import { buildCloudinaryUrl } from '@/core/helpers';
 
 interface TestimonialCardProps {
   testimonial: Testimonial;
 }
 
 /**
- * Carte d'un témoignage : citation, note en étoiles, auteur et rôle.
+ * Carte d'un témoignage : citation, texte, puis auteur (avatar, nom, rôle).
  */
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   const avatar = buildCloudinaryUrl(testimonial.avatar_url, { width: 96, format: 'auto' });
 
   return (
-    <Card className="flex h-full flex-col">
-      <Quote className="h-6 w-6 text-primary/40" />
+    <Card hoverable className="flex h-full flex-col shadow-sm">
+      <Quote className="h-8 w-8 text-primary" />
 
-      <p className="mt-4 flex-1 text-sm italic text-muted">
+      <p className="mt-5 flex-1 text-sm italic text-muted">
         « {testimonial.content} »
       </p>
 
-      <div className="mt-4 flex gap-0.5">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <Star
-            key={index}
-            className={cn(
-              'h-4 w-4',
-              index < testimonial.rating
-                ? 'fill-primary text-primary'
-                : 'text-border'
-            )}
-          />
-        ))}
-      </div>
-
-      <div className="mt-5 flex items-center gap-3">
-        <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border">
+      <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+        <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-border">
           {avatar ? (
             <img src={avatar} alt={testimonial.name} className="h-full w-full object-cover" />
           ) : (
@@ -48,7 +34,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
         <div>
           <p className="text-sm font-semibold text-text">{testimonial.name}</p>
           {testimonial.role && (
-            <p className="text-xs text-faint">{testimonial.role}</p>
+            <p className="text-sm text-faint">{testimonial.role}</p>
           )}
         </div>
       </div>

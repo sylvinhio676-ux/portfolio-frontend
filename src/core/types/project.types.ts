@@ -1,5 +1,7 @@
 export type ProjectStatus = 'draft' | 'published' | 'archived';
 
+export type ProjectCategory = 'web' | 'mobile' | 'api';
+
 export interface ProjectImage {
   id: number;
   project_id: number;
@@ -30,6 +32,7 @@ export interface Project {
   demo_url: string | null;
   video_url: string | null;
   cover_image: string | null;
+  category: ProjectCategory | null;
   is_featured: boolean;
   status: ProjectStatus;
   sort_order: number;
@@ -64,6 +67,7 @@ export interface ProjectDetail {
     video: string | null;
   };
   cover_image: string | null;
+  category: ProjectCategory | null;
   images: ProjectImage[];
   technologies: ProjectTechnology[];
   is_featured: boolean;

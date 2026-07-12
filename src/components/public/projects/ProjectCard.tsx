@@ -20,7 +20,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const detailPath = ROUTES.public.projectDetail(project.slug);
 
   return (
-    <Card hoverable className="group flex flex-col overflow-hidden p-0">
+    <Card className="group flex flex-col overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:border-primary">
       <Link to={detailPath} className="block aspect-video overflow-hidden bg-surface">
         {cover ? (
           <img

@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowRight } from 'lucide-react';
 import { cn } from '@/core/helpers';
+import { Button } from '@/components/ui';
+import { ROUTES } from '@/core/constants';
 import { useThemeStore } from '@/store';
 import { NAV_ITEMS } from './nav-items';
 import { NavLink } from './NavLink';
@@ -25,68 +27,64 @@ export function Header() {
   return (
     <header
       className={cn(
-        'fixed top-0  border-b border-b-gray-100 left-0 right-0 z-50 transition-all duration-300',
+        'fixed top-0 left-0 right-0 z-50 border-b border-border transition-all duration-300',
         isScrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-border'
+          ? 'bg-background/80 backdrop-blur-md'
           : 'bg-transparent'
       )}
     >
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
+      <div className="container relative mx-auto px-4 h-16 flex items-center justify-between">
+        {/* Logo "NT." — lettres neutres + point vert en --primary */}
         <Link
           to="/"
-          className="font-heading text-xl font-bold text-primary hover:text-primary-hover transition-colors"
+          className="font-heading text-xl font-bold text-text hover:text-primary transition-colors"
         >
-          Sylviniho<span className="text-foreground">.</span>
+          NT<span className="text-primary">.</span>
         </Link>
 
-        {/* Navigation desktop + Theme toggle */}
-        <div className="hidden md:flex items-center gap-6">
-          <nav className="flex items-center gap-6">
-            {NAV_ITEMS.map((item) => (
-              <NavLink key={item.href} href={item.href} label={item.label} />
-            ))}
-          </nav>
+        {/* Navigation desktop centrée */}
+        <nav className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+          {NAV_ITEMS.map((item) => (
+            <NavLink key={item.href} href={item.href} label={item.label} />
+          ))}
+        </nav>
 
-          {/* Bouton thème */}
+        {/* Actions à droite : contact + thème (+ burger mobile) */}
+        <div className="flex items-center gap-2">
+          {/* Bouton "Me contacter" (masqué sur très petit écran) */}
+          <Button
+            to={ROUTES.public.contact}
+            variant="primary"
+            size="sm"
+            className="hidden sm:inline-flex"
+          >
+            Me contacter
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+
+          {/* Bouton bascule de thème (toujours accessible) */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg hover:bg-surface transition-colors"
             aria-label={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
           >
             {theme === 'dark' ? (
-              <Sun className="w-5 h-5 text-foreground" />
+              <Sun className="w-5 h-5 text-text" />
             ) : (
-              <Moon className="w-5 h-5 text-foreground" />
-            )}
-          </button>
-        </div>
-
-        {/* Boutons mobile : menu + theme */}
-        <div className="flex items-center gap-2 md:hidden">
-          {/* Bouton thème mobile */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-surface transition-colors"
-            aria-label={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
-          >
-            {theme === 'dark' ? (
-              <Sun className="w-5 h-5 text-foreground" />
-            ) : (
-              <Moon className="w-5 h-5 text-foreground" />
+              <Moon className="w-5 h-5 text-text" />
             )}
           </button>
 
           {/* Bouton menu mobile */}
           <button
-            className="p-2 hover:bg-surface rounded-lg transition-colors"
+            className="p-2 hover:bg-surface rounded-lg transition-colors md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Ouvrir le menu"
           >
             {isMobileMenuOpen ? (
-              <X className="w-5 h-5 text-foreground" />
+              <X className="w-5 h-5 text-text" />
             ) : (
-              <Menu className="w-5 h-5 text-foreground" />
+              <Menu className="w-5 h-5 text-text" />
             )}
           </button>
         </div>

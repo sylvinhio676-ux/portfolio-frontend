@@ -17,7 +17,8 @@ function averageLevel(group: SkillGroup): number {
  * carte profil), animées à l'entrée dans le viewport.
  */
 export function AboutSkills({ groups }: AboutSkillsProps) {
-  const bars = groups.map((group) => ({
+  // On limite l'affichage à 4 catégories max (ex. Frontend, Backend, Mobile…).
+  const bars = groups.slice(0, 4).map((group) => ({
     name: group.category.name,
     level: averageLevel(group),
   }));
@@ -28,11 +29,11 @@ export function AboutSkills({ groups }: AboutSkillsProps) {
       <div className="space-y-4">
         {bars.map((bar) => (
           <div key={bar.name}>
-            <div className="mb-1 flex items-center justify-between text-sm">
-              <span className="text-muted">{bar.name}</span>
-              <span className="text-faint">{bar.level}%</span>
+            <div className="mb-2 flex items-center justify-between gap-2 text-sm">
+              <span className="min-w-0 truncate text-muted">{bar.name}</span>
+              <span className="shrink-0 font-medium text-text">{bar.level}%</span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface">
+            <div className="h-2 w-full overflow-hidden rounded-full bg-surface">
               <motion.div
                 className="h-full rounded-full bg-primary"
                 initial={{ width: 0 }}

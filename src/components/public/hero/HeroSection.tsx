@@ -17,15 +17,16 @@ export function HeroSection() {
   const { data: about, isLoading, isError } = useAbout();
   const { groups } = useSkills();
 
-  // Aplatit les compétences visibles (déjà filtrées/triées par le hook)
-  // pour alimenter l'orbite ; on garde le nom de catégorie en sous-libellé.
-  const techs: OrbitTech[] = groups.flatMap((group) =>
-    group.skills.map((skill) => ({
-      name: skill.name,
-      logoUrl: skill.logo_url,
-      categoryName: group.category.name,
-    }))
-  );
+  // Aplatit les technos réelles (max 6) pour alimenter l'orbite de droite.
+  const techs: OrbitTech[] = groups
+    .flatMap((group) =>
+      group.skills.map((skill) => ({
+        name: skill.name,
+        logoUrl: skill.logo_url,
+        categoryName: group.category.name,
+      }))
+    )
+    .slice(0, 6);
 
   if (isLoading) {
     return (

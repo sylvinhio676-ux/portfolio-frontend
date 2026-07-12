@@ -10,6 +10,14 @@ const STATUS_OPTIONS = [
   { value: 'archived', label: 'Archivé' },
 ];
 
+// La valeur vide correspond à « non catégorisé » (null côté API).
+const CATEGORY_OPTIONS = [
+  { value: '', label: 'Non catégorisé' },
+  { value: 'web', label: 'Web' },
+  { value: 'mobile', label: 'Mobile' },
+  { value: 'api', label: 'API' },
+];
+
 const CASE_STUDY_FIELDS = [
   ['problem', 'Problème'],
   ['solution', 'Solution'],
@@ -35,6 +43,7 @@ const EMPTY_VALUES: ProjectFormValues = {
   demo_url: '',
   video_url: '',
   cover_image: '',
+  category: null,
   is_featured: false,
   status: 'draft',
   sort_order: 0,
@@ -111,6 +120,19 @@ export function ProjectForm({
       />
 
       <div className="grid items-end gap-4 md:grid-cols-3">
+        <Controller
+          control={control}
+          name="category"
+          render={({ field }) => (
+            <Select
+              label="Catégorie"
+              options={CATEGORY_OPTIONS}
+              value={field.value ?? ''}
+              onChange={(value) => field.onChange(value === '' ? null : value)}
+              error={errors.category?.message}
+            />
+          )}
+        />
         <Controller
           control={control}
           name="status"

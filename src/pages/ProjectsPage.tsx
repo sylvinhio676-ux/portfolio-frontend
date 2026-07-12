@@ -2,31 +2,24 @@ import { useMemo, useState } from 'react';
 import { Skeleton } from '@/components/ui';
 import { useProjects } from '@/hooks/public/use-projects';
 import { ProjectCard } from '@/components/public/projects/ProjectCard';
-import { ProjectFilter, ALL_FILTER } from '@/components/public/projects/ProjectFilter';
+import {
+  ProjectFilter,
+  ALL_FILTER,
+  type ProjectFilterValue,
+} from '@/components/public/projects/ProjectFilter';
 import { PageSeo } from '@/components/public/seo';
 
 /**
- * Page « Projets » — liste complète des projets publiés + filtre par techno.
+ * Page « Projets » — liste complète des projets publiés + filtre par catégorie.
  */
 export function ProjectsPage() {
   const { data: projects, isLoading } = useProjects();
-  const [active, setActive] = useState(ALL_FILTER);
-
-  // Technologies distinctes présentes sur les projets.
-  const technologies = useMemo(() => {
-    const set = new Set<string>();
-    (projects ?? []).forEach((project) =>
-      (project.technologies ?? []).forEach((tech) => set.add(tech.name))
-    );
-    return Array.from(set);
-  }, [projects]);
+  const [active, setActive] = useState<ProjectFilterValue>(ALL_FILTER);
 
   const filtered = useMemo(() => {
     if (!projects) return [];
     if (active === ALL_FILTER) return projects;
-    return projects.filter((project) =>
-      (project.technologies ?? []).some((tech) => tech.name === active)
-    );
+    return projects.filter((project) => project.category === active);
   }, [projects, active]);
 
   return (
@@ -47,7 +40,7 @@ export function ProjectsPage() {
         </div>
 
         <div className="mb-8">
-          <ProjectFilter technologies={technologies} active={active} onChange={setActive} />
+          <ProjectFilter active={active} onChange={setActive} />
         </div>
 
         {isLoading ? (

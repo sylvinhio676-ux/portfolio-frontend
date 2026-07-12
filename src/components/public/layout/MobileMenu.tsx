@@ -1,6 +1,10 @@
 
 
 import { useEffect } from 'react';
+import { Sun, Moon, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui';
+import { ROUTES } from '@/core/constants';
+import { useThemeStore } from '@/store';
 import { NavLink } from './NavLink';
 import type { NavItem } from './nav-items';
 
@@ -11,6 +15,8 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) {
+  const { theme, toggleTheme } = useThemeStore();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -54,6 +60,38 @@ export function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) {
             className="text-base"
           />
         ))}
+
+        {/* Accès rapide : contact + bascule de thème */}
+        <div className="mt-auto flex flex-col gap-4">
+          <Button
+            to={ROUTES.public.contact}
+            variant="primary"
+            size="md"
+            onClick={onClose}
+          >
+            Me contacter
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex items-center gap-2 rounded-lg p-2 text-text transition-colors hover:bg-card"
+            aria-label={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="w-5 h-5" />
+                <span className="text-sm">Mode clair</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-5 h-5" />
+                <span className="text-sm">Mode sombre</span>
+              </>
+            )}
+          </button>
+        </div>
       </nav>
     </div>
   );

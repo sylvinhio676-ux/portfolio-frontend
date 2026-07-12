@@ -5,6 +5,7 @@ import { Button } from '@/components/ui';
 import type { Testimonial } from '@/core/types';
 import { cn } from '@/core/helpers';
 import { TestimonialCard } from './TestimonialCard';
+import { TestimonialsHeader } from './TestimonialsHeader';
 
 interface TestimonialsCarouselProps {
   testimonials: Testimonial[];
@@ -29,28 +30,33 @@ export function TestimonialsCarousel({ testimonials }: TestimonialsCarouselProps
 
   return (
     <div>
-      {hasControls && (
-        <div className="mb-6 flex justify-end gap-2">
-          <Button
-            variant="secondary"
-            size="sm"
-            className="rounded-full p-2"
-            aria-label="Témoignages précédents"
-            onClick={() => goTo(-1)}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="rounded-full p-2"
-            aria-label="Témoignages suivants"
-            onClick={() => goTo(1)}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      )}
+      {/* En-tête : pastille + titre à gauche, flèches de navigation à droite. */}
+      <TestimonialsHeader
+        actions={
+          hasControls ? (
+            <>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="rounded-full p-2"
+                aria-label="Témoignages précédents"
+                onClick={() => goTo(-1)}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="rounded-full p-2"
+                aria-label="Témoignages suivants"
+                onClick={() => goTo(1)}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </>
+          ) : undefined
+        }
+      />
 
       <AnimatePresence mode="wait">
         <motion.div

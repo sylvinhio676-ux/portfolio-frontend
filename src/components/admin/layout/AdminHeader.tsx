@@ -1,4 +1,6 @@
-import { Bell, Sun, Moon, Menu } from 'lucide-react';
+import { Bell, Sun, Moon, Menu, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui';
+import { ROUTES } from '@/core/constants';
 import { useThemeStore } from '@/store';
 
 interface AdminHeaderProps {
@@ -26,6 +28,18 @@ export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Aller voir le site public dans un nouvel onglet (le dashboard reste ouvert). */}
+          <Button
+            href={ROUTES.public.home}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="ghost"
+            size="sm"
+          >
+            <ExternalLink className="h-4 w-4" />
+            <span className="hidden sm:inline">Voir le site</span>
+          </Button>
+
           <button onClick={toggleTheme} className="rounded-lg p-2 transition-colors hover:bg-surface" aria-label="Changer le thème">
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>

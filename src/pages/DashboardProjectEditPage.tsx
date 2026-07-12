@@ -25,6 +25,7 @@ function mapDetailToForm(project: ProjectDetail): ProjectFormValues {
     demo_url: project.links.demo ?? '',
     video_url: project.links.video ?? '',
     cover_image: project.cover_image ?? '',
+    category: project.category ?? null,
     is_featured: project.is_featured,
     status: project.status,
     sort_order: project.sort_order,

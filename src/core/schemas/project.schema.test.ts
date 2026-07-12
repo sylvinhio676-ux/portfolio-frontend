@@ -15,6 +15,7 @@ const validProject = {
   demo_url: '',
   video_url: '',
   cover_image: '',
+  category: null,
   is_featured: false,
   status: 'draft' as const,
   sort_order: 0,
