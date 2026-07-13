@@ -3,6 +3,7 @@ import { Briefcase, Code, Clock, Heart, ChevronDown, type LucideIcon } from 'luc
 import { Card, Skeleton } from '@/components/ui';
 import { useAbout } from '@/hooks/public/use-about';
 import { useSkills } from '@/hooks/public/use-skills';
+import { useSettings } from '@/hooks/public/use-settings';
 import { HeroTitle } from './HeroTitle';
 import { HeroCTA } from './HeroCTA';
 import { HeroBackground, type OrbitTech } from './HeroBackground';
@@ -16,6 +17,7 @@ interface HeroStat {
 export function HeroSection() {
   const { data: about, isLoading, isError } = useAbout();
   const { groups } = useSkills();
+  const { data: settings } = useSettings();
 
   // Aplatit les technos réelles (max 6) pour alimenter l'orbite de droite.
   const techs: OrbitTech[] = groups
@@ -60,14 +62,16 @@ export function HeroSection() {
           transition={{ duration: 0.6, staggerChildren: 0.15 }}
           className="flex flex-col gap-8"
         >
-          {/* Badge de disponibilité */}
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+          {/* Badge de disponibilité — piloté par les paramètres publics. */}
+          {settings?.is_available && (
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+              </span>
+              {settings.availability_message || 'Disponible pour de nouveaux projets'}
             </span>
-            Disponible pour de nouveaux projets
-          </span>
+          )}
 
           <HeroTitle name={name} title={title} />
 
