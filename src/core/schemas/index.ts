@@ -7,3 +7,5 @@ export * from './testimonial.schema';
 export * from './social.schema';
 export * from './seo.schema';
 export * from './contact.schema';
+export * from './setting.schema';
+export * from './password.schema';

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { LayoutGrid, List, Plus, Search } from 'lucide-react';
 import {
   DndContext,
@@ -65,10 +65,13 @@ export function DashboardCertificationsPage() {
   const updateCertification = useUpdateCertification();
 
   // Copie locale pour un réordonnancement optimiste avant persistance.
-  const [items, setItems] = useState<Certification[]>([]);
-  useEffect(() => {
-    if (data) setItems(data);
-  }, [data]);
+  // On ajuste l'état pendant le rendu quand `data` change (pas d'effet).
+  const [items, setItems] = useState<Certification[]>(data ?? []);
+  const [prevData, setPrevData] = useState(data);
+  if (data !== prevData) {
+    setPrevData(data);
+    setItems(data ?? []);
+  }
 
   const [view, setView] = useState<ViewMode>('table');
   const [search, setSearch] = useState('');

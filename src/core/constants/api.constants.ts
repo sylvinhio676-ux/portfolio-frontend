@@ -103,4 +103,12 @@ export const API_ROUTES = {
     UPLOAD: '/admin/media/upload',
     DELETE: '/admin/media/delete',
   },
+  SETTINGS: {
+    GET: '/settings',
+    ADMIN_GET: '/admin/settings',
+    ADMIN_UPDATE: '/admin/settings',
+  },
+  ACCOUNT: {
+    UPDATE_PASSWORD: '/admin/account/password',
+  },
 } as const;

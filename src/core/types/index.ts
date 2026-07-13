@@ -13,3 +13,4 @@ export * from './social.types';
 export * from './appearance.types';
 export * from './seo.types';
 export * from './media.types';
+export * from './setting.types';

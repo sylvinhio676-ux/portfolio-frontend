@@ -10,3 +10,5 @@ export * from './use-admin-socials';
 export * from './use-admin-about';
 export * from './use-admin-seo';
 export * from './use-media-upload';
+export * from './use-admin-settings';
+export * from './use-update-password';

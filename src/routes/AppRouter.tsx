@@ -73,6 +73,9 @@ const DashboardSeoPage = lazy(() =>
 const DashboardMediaPage = lazy(() =>
   import('@/pages/DashboardMediaPage').then((m) => ({ default: m.DashboardMediaPage }))
 );
+const DashboardSettingsPage = lazy(() =>
+  import('@/pages/DashboardSettingsPage').then((m) => ({ default: m.DashboardSettingsPage }))
+);
 const DashboardEducationPage = lazy(() =>
   import('@/pages/DashboardEducationPage').then((m) => ({ default: m.DashboardEducationPage }))
 );
@@ -147,6 +150,7 @@ export function AppRouter() {
             <Route path={ROUTES.admin.about} element={<DashboardAboutPage />} />
             <Route path={ROUTES.admin.seo} element={<DashboardSeoPage />} />
             <Route path={ROUTES.admin.media} element={<DashboardMediaPage />} />
+            <Route path={ROUTES.admin.settings} element={<DashboardSettingsPage />} />
           </Route>
         </Route>
 

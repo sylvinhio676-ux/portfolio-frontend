@@ -15,3 +15,5 @@ export * from './testimonials.service';
 export * from './socials.service';
 export * from './contact.service';
 export * from './media.service';
+export * from './setting.service';
+export * from './account.service';

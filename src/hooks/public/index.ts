@@ -14,3 +14,4 @@ export * from './use-testimonials';
 export * from './use-socials';
 export * from './use-seo';
 export * from './use-contact-form';
+export * from './use-settings';

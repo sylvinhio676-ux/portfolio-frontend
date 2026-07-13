@@ -18,3 +18,4 @@ export * from './DashboardAboutPage';
 export * from './DashboardAppearancePage';
 export * from './DashboardSeoPage';
 export * from './DashboardMediaPage';
+export * from './DashboardSettingsPage';

@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, FolderOpen, Code2, Briefcase, Server,
-  Users, User, Search, Settings, LogOut, X, GraduationCap, Award,
+  Users, User, Search, Settings, LogOut, X, GraduationCap, Award, SlidersHorizontal,
 } from 'lucide-react';
 import { cn } from '@/core/helpers';
 import { NavItem } from './NavItem';
@@ -19,6 +19,7 @@ const NAV_ITEMS = [
   { href: '/dashboard/about', label: 'À propos', icon: User },
   { href: '/dashboard/seo', label: 'SEO', icon: Search },
   { href: '/dashboard/media', label: 'Médias', icon: Settings },
+  { href: '/dashboard/settings', label: 'Paramètres', icon: SlidersHorizontal },
 ];
 
 interface SidebarProps {

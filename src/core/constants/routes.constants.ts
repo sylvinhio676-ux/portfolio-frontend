@@ -27,5 +27,6 @@ export const ROUTES = {
     appearance: '/dashboard/appearance',
     seo: '/dashboard/seo',
     media: '/dashboard/media',
+    settings: '/dashboard/settings',
   },
 } as const;
